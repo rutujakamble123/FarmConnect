@@ -1,0 +1,130 @@
+
+Good morning!
+
+My name is Rutuja Kamble, and I’m excited to present my capstone project — FarmConnect: Bridging Farmers to Markets.
+
+This is a Java-MySQL console-based application that aims to digitize the agricultural supply chain. It allows farmers to directly add and manage their products, while buyers can search, order, and track inventory in real time.
+
+The entire system is powered using JDBC for backend integration, with proper exception handling, database transactions, and modular design.
+
+Through this project, I’ve implemented real-world backend logic, designed a fully normalized database, and ensured reliability through rigorous testing.
+
+I’m looking forward to walking you through the system design, functionality, demo flow, and the key technical skills I gained while building FarmConnect.
+
+
+
+
+
+“FarmConnect is a Java console-based project integrated with MySQL, designed to simulate a real-world farmer-to-market supply chain. It allows farmers to manage products and buyers to search, place orders, and view history. I implemented inventory checks, exception handling, and order rollback using JDBC transactions. The project demonstrates backend CRUD operations, stored procedures, and modular Java structure. This helped me improve my database skills and understand real-time order systems, preparing me for backend development roles.”
+
+https://chatgpt.com/share/686fb32e-e984-8000-9e67-49dbede8230e
+
+
+
+
+
+Question	What You Can Say
+What challenges did you face?	“Handling cart logic, linking multiple tables, and learning transaction rollback in JDBC.”
+What did you learn from this project?	“Real-world backend logic, database integration, exception handling, and how to build modular Java applications.”
+If you had more time, what would you improve?	“I’d add a GUI using Swing or JavaFX, and a login system with PDF order summary.”
+
+Thank you for this opportunity — and I’m happy to answer any questions at the end!
+
+
+Prepare an elevator pitch like:
+
+“FarmConnect is a console-based Java app that connects farmers and buyers through a supply chain system. Farmers can manage inventory, and buyers can place and track orders. I used JDBC for database operations, with stored procedures, transactions, and exception handling for real-time reliability.”
+
+✅ Say it like a story, not like reading lines.
+
+
+
+
+
+
+
+Table Relationships:
+1 farmer → many products
+
+1 buyer → many orders
+
+1 order → many products (via order_products)
+
+1 product → can be in many orders
+
+
+
+farmers – stores farmer registration info 
+buyers – stores buyer details 
+products – all products added by farmers
+orders – stores buyer orders
+order_products – links multiple products to one order with quantity
+
+
+
+Farm Connect is a Java-based console application integrated with a MySQL database, enabling farmers to manage product listings and buyers to search for, place, and track orders. It ensures accurate inventory management in real time, incorporates exception handling for scenarios like out-of-stock products, and maintains data consistency through transaction control and a well-structured relational database
+
+conclusion
+
+FarmConnect is a complete Java-MySQL capstone project that replicates a real-world agricultural supply ordering system. Featuring modular code structure, seamless database connectivity, and robust error handling, it showcases practical backend development skills crucial for placements and real-world software development.
+
+
+DELIMITER //
+
+CREATE PROCEDURE GetBuyerOrders (IN buyerName VARCHAR(100))
+BEGIN
+    SELECT o.order_id, o.total_amount, o.status, p.name AS product_name, op.quantity
+    FROM orders o
+    JOIN order_products op ON o.order_id = op.order_id
+    JOIN products p ON op.product_id = p.product_id
+    WHERE o.buyer_name = buyerName;
+END //
+
+DELIMITER ;
+
+CALL GetBuyerOrders('Rutuja');
+
+
+
+
+| Entity A    | Relationship | Entity B           | Type | Description                           |
+| ----------- | ------------ | ------------------ | ---- | ------------------------------------- |
+| **Farmer**  | has-a        | **Product**        | 1\:M | One farmer **has many** products      |
+| **Buyer**   | has-a        | **Order**          | 1\:M | One buyer **places many** orders      |
+| **Order**   | has-a        | **Order\_Product** | 1\:M | One order **contains many** products  |
+| **Product** | has-a        | **Order\_Product** | 1\:M | One product **can be in many** orders |
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+“Why did you build this project?”
+“I built this project because I wanted to apply Java and MySQL together in a real-world backend system. Agriculture is a domain that impacts everyone, so I designed FarmConnect to simulate a farmer-to-market supply chain — where farmers manage their products and buyers can search, order, and track them. It gave me a chance to work with databases, transactions, and exception handling in a practical scenario.”
+
+✅ Tip: Add 1 line about motivation if you want:
+
+“Also, I come from a place where farming is common, so I thought it would be meaningful.”
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+“What was the biggest challenge?”
+“The biggest challenge was managing multiple related tables like orders and order_products using transactions. I had to make sure that either the full order is placed or nothing changes in the database — which meant learning about rollback and commit in JDBC. Another challenge was ensuring the cart system worked properly and didn’t allow invalid quantities. Debugging input issues while keeping the code user-friendly was also tricky.”
+
+ “What did you learn from this project?”
+“This project taught me how to build a modular Java application using JDBC to connect to a MySQL database. I learned to write CRUD operations, handle exceptions properly, use prepared statements for safety, and work with stored procedures. I also understood how transactions work in real systems — like committing or rolling back changes during an order. It helped me write cleaner code and structure my logic better.”
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+✅ Bonus Tip: Wrap Up With Confidence
+End with:
+
+“Overall, this project helped me gain confidence in backend development and made me more prepared for real-world roles that require Java, SQL, and logic building.”
+
+
+
+
+
+
